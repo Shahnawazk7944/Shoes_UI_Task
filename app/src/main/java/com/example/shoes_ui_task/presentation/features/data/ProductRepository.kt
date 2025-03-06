@@ -10,7 +10,13 @@ data class Product(
     val price: String,
     val description: String,
     @DrawableRes val image: Int,
-    val color: Color
+    val color: Color,
+    val sizes: List<ProductSizes>
+)
+
+data class ProductSizes(
+    val isAvailable: Boolean,
+    val size: String
 )
 
 object ProductRepository {
@@ -24,7 +30,17 @@ object ProductRepository {
             price = "₹12,995",
             description = "A comfortable green shoe for everyday wear. Made with breathable material and cushioned insoles, perfect for walking and casual outings.",
             image = R.drawable.green_shoe,
-            color = Color(0xFF599C99)
+            color = Color(0xFF599C99),
+            sizes = listOf(
+                ProductSizes(true,"UK 6"),
+                ProductSizes(true,"UK 7"),
+                ProductSizes(true,"UK 8"),
+                ProductSizes(false,"UK 9"),
+                ProductSizes(true,"UK 10"),
+                ProductSizes(false,"UK 11"),
+                ProductSizes(true,"UK 12"),
+            )
+
         ),
         Product(
             id = "2",
@@ -32,7 +48,16 @@ object ProductRepository {
             price = "₹8,895",
             description = "A stylish red shoe for special occasions. Features a sleek design with a pointed toe and a slight heel, adding a touch of elegance to your outfit.",
             image = R.drawable.red_shoe,
-            color = Color(0xFFE24C4D)
+            color = Color(0xFFE24C4D),
+            sizes = listOf(
+                ProductSizes(true,"UK 6"),
+                ProductSizes(true,"UK 7"),
+                ProductSizes(false,"UK 8"),
+                ProductSizes(true,"UK 9"),
+                ProductSizes(true,"UK 10"),
+                ProductSizes(false,"UK 11"),
+                ProductSizes(true,"UK 12"),
+            )
         ),
         Product(
             id = "3",
@@ -40,7 +65,16 @@ object ProductRepository {
             price = "₹12,995",
             description = "A classic white shoe that goes with everything. Versatile and comfortable, ideal for both casual and semi-formal events.",
             image = R.drawable.white_shoe,
-            color = Color(0xFF4B81F4)
+            color = Color(0xFF4B81F4),
+            sizes = listOf(
+                ProductSizes(true,"UK 6"),
+                ProductSizes(false,"UK 7"),
+                ProductSizes(true,"UK 8"),
+                ProductSizes(true,"UK 9"),
+                ProductSizes(true,"UK 10"),
+                ProductSizes(false,"UK 11"),
+                ProductSizes(true,"UK 12"),
+            )
         ),
         Product(
             id = "4",
@@ -48,7 +82,16 @@ object ProductRepository {
             price = "₹11,897",
             description = "A vibrant yellow shoe to brighten your day. Made with durable materials and a slip-resistant sole, perfect for outdoor activities and adventures.",
             image = R.drawable.yellow_shoe,
-            color = Color(0xFFFDBA62)
+            color = Color(0xFFFDBA62),
+            sizes = listOf(
+                ProductSizes(false,"UK 6"),
+                ProductSizes(true,"UK 7"),
+                ProductSizes(true,"UK 8"),
+                ProductSizes(true,"UK 9"),
+                ProductSizes(false,"UK 10"),
+                ProductSizes(true,"UK 11"),
+                ProductSizes(true,"UK 12"),
+            )
         )
     )
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,8 +15,9 @@ class ProductDetailsScreenViewModel @Inject constructor() : ViewModel() {
 
     fun productDetailsScreenEvents(event: ProductDetailsScreenEvents) {
         when (event) {
-
-            else -> {}
+            is ProductDetailsScreenEvents.GetProductById -> {
+                _state.update { it.copy(selectedProduct = it.product.find { it.id == event.id }) }
+            }
         }
     }
 

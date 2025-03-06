@@ -7,5 +7,5 @@ sealed class Routes {
     @Serializable
     data object ProductsScreen : Routes()
     @Serializable
-    data object ProductDetailsScreen : Routes()
+    data class ProductDetailsScreen(val id: String) : Routes()
 }
