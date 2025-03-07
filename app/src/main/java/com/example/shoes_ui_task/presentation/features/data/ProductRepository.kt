@@ -20,9 +20,7 @@ data class ProductSizes(
 )
 
 object ProductRepository {
-    /**
-     * A list of available products.
-     */
+
     val products: List<Product> = listOf(
         Product(
             id = "1",

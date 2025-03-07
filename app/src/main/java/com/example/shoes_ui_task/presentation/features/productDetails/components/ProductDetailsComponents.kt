@@ -1,7 +1,11 @@
 package com.example.shoes_ui_task.presentation.features.productDetails.components
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +23,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -45,26 +50,35 @@ import com.example.shoes_ui_task.presentation.features.data.Product
 import com.example.shoes_ui_task.presentation.features.data.ProductSizes
 
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun ProductImageCard(product: Product) {
-    Card(
+fun ProductImageCard(
+    product: Product,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope
+) {
+    Box(
         modifier = Modifier
-            .fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = product.color),
-        shape = RoundedCornerShape(16.dp)
+            .size(300.dp)
+            .background(product.color, CircleShape),
+        contentAlignment = Alignment.Center
     ) {
-        Box(modifier = Modifier.fillMaxSize()) {
+        with(sharedTransitionScope) {
             Image(
                 painter = painterResource(id = product.image),
                 contentDescription = product.name,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Fit,
                 modifier = Modifier
-                    .size(300.dp)
-                    .align(Alignment.BottomCenter)
+                    .size(250.dp)
+                    .sharedElement(
+                        sharedTransitionScope.rememberSharedContentState(key = "image-${product.id}"),
+                        animatedVisibilityScope = animatedContentScope
+                    )
             )
         }
     }
 }
+
 
 @Composable
 fun ProductDetailsSection(product: Product) {
@@ -153,9 +167,9 @@ fun ProductCarousel(
                     Image(
                         painter = painterResource(id = product.image),
                         contentDescription = product.name,
-                        contentScale = ContentScale.Crop,
+                        contentScale = ContentScale.Fit,
                         modifier = Modifier
-                            .fillMaxSize()
+                            .size(100.dp)
                             .padding(12.dp)
                             .align(Alignment.Center)
                     )

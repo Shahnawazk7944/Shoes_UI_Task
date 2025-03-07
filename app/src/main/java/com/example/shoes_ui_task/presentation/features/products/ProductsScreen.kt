@@ -3,6 +3,7 @@ package com.example.shoes_ui_task.presentation.features.products
 
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.PaddingValues
@@ -47,8 +48,10 @@ import com.example.shoes_ui_task.presentation.features.products.viewmodels.Produ
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.ProductsScreen(
+fun ProductsScreen(
     viewModel: ProductsScreenViewModel = hiltViewModel(),
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     onProductClick: (id: String) -> Unit
 ) {
     val activity = LocalActivity.current
@@ -63,7 +66,9 @@ fun SharedTransitionScope.ProductsScreen(
             showLogoutDialog = true
         },
         onProductClick = { onProductClick.invoke(it.id) },
-        events = viewModel::productsScreenEvents
+        events = viewModel::productsScreenEvents,
+        sharedTransitionScope = sharedTransitionScope,
+        animatedContentScope = animatedContentScope
     )
     if (showLogoutDialog) {
         CustomConfirmationDialog(
@@ -83,10 +88,13 @@ fun SharedTransitionScope.ProductsScreen(
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun ProductsScreenContent(
     state: ProductsScreenStates,
     events: (ProductsScreenEvents) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     onBackClick: () -> Unit,
     onProductClick: (Product) -> Unit,
 ) {
@@ -136,7 +144,9 @@ fun ProductsScreenContent(
                     ProductCard(
                         product = state.product[page],
                         isCurrentPage = page == pagerState.currentPage,
-                        onProductClick = onProductClick
+                        onProductClick = onProductClick,
+                        sharedTransitionScope = sharedTransitionScope,
+                        animatedContentScope = animatedContentScope
                     )
                 }
             }
@@ -159,6 +169,7 @@ fun ProductsScreenContent(
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @PreviewLightDark
 @Composable
 fun ProductsScreenContentPreview() {
@@ -167,7 +178,9 @@ fun ProductsScreenContentPreview() {
             state = ProductsScreenStates(),
             onBackClick = {},
             events = {},
-            onProductClick = {}
+            onProductClick = {},
+            sharedTransitionScope = TODO(),
+            animatedContentScope = TODO()
         )
     }
 }

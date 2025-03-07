@@ -1,5 +1,8 @@
 package com.example.shoes_ui_task.presentation.features.products.components
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -68,8 +71,15 @@ fun FilterChips(
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun ProductCard(product: Product, isCurrentPage: Boolean, onProductClick: (Product) -> Unit) {
+fun ProductCard(
+    product: Product,
+    isCurrentPage: Boolean,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
+    onProductClick: (Product) -> Unit
+) {
     val targetRotation = if (isCurrentPage) -20f else -70f
     val animateRotation by animateFloatAsState(
         targetValue = targetRotation,
@@ -88,11 +98,17 @@ fun ProductCard(product: Product, isCurrentPage: Boolean, onProductClick: (Produ
             Column(
                 modifier = Modifier.padding(16.dp),
             ) {
-                Text(
-                    text = product.name,
-                    style = MaterialTheme.typography.headlineLarge,
-                    color = MaterialTheme.colorScheme.onSecondary,
-                )
+                with(sharedTransitionScope) {
+                    Text(
+                        text = product.name,
+                        style = MaterialTheme.typography.headlineLarge,
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        modifier = Modifier.sharedElement(
+                            sharedTransitionScope.rememberSharedContentState(key = "text-${product.id}"),
+                            animatedVisibilityScope = animatedContentScope
+                        )
+                    )
+                }
                 Text(
                     text = product.price,
                     style = MaterialTheme.typography.titleMedium,
@@ -100,17 +116,24 @@ fun ProductCard(product: Product, isCurrentPage: Boolean, onProductClick: (Produ
                 )
             }
 
-            Image(
-                painter = painterResource(id = product.image),
-                contentDescription = product.name,
-                modifier = Modifier
-                    .size(300.dp)
-                    .align(Alignment.BottomEnd)
-                    .rotate(animateRotation)
-            )
+            with(sharedTransitionScope) {
+                Image(
+                    painter = painterResource(id = product.image),
+                    contentDescription = product.name,
+                    modifier = Modifier
+                        .size(300.dp)
+                        .align(Alignment.BottomEnd)
+                        .rotate(animateRotation)
+                        .sharedElement(
+                            sharedTransitionScope.rememberSharedContentState(key = "image-${product.id}"),
+                            animatedVisibilityScope = animatedContentScope
+                        )
+                )
+            }
         }
     }
 }
+
 
 @Composable
 fun ProductItem(product: Product, onProductClick: (Product) -> Unit) {

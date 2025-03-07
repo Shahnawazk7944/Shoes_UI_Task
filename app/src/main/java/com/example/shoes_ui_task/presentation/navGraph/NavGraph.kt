@@ -29,7 +29,9 @@ fun Shoes_UI_Task_NavGraph(
                 ProductsScreen(
                     onProductClick = {
                         navController.navigate(Routes.ProductDetailsScreen(id = it))
-                    }
+                    },
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@composable
                 )
             }
             composable<Routes.ProductDetailsScreen> { navBackStackEntry ->
@@ -38,7 +40,9 @@ fun Shoes_UI_Task_NavGraph(
                     id = product.id,
                     onBackClick = {
                         navController.navigateUp()
-                    }
+                    },
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@composable
                 )
             }
         }
