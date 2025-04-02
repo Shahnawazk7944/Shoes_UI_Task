@@ -19,7 +19,7 @@ fun PW_UI_Task_NavGraph(
     NavHost(
         modifier = Modifier.fillMaxSize(),
         navController = navController,
-        startDestination = Routes.InteractiveLearningModuleScreen("NA")
+        startDestination = Routes.DashboardScreen
     ) {
         composable<Routes.DashboardScreen> {
             DashboardScreen(

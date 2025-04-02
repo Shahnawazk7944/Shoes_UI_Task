@@ -15,7 +15,7 @@
       </SelectionState>
       <SelectionState runConfigName="pwuitask">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-04-02T15:24:14.796524200Z">
+        <DropdownSelection timestamp="2025-04-02T18:41:52.826160600Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Faraz\.android\avd\Pixel_Fold_API_34.avd" />
