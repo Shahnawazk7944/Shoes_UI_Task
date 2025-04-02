@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Shoes_UI_Task"
 include(":app")
 include(":designSystem")
+include(":pwuitask")
