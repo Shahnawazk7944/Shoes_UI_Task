@@ -47,3 +47,8 @@ Experience the thrill of discovering your perfect pair with Stride into Style, a
 ### Screenshots/Visuals:
 
 <div align="center"><video src="https://github.com/user-attachments/assets/6cad4b33-76c5-4fa5-a257-8dc11a5f0957" height="400" ></video></div>
+<br><br>
+
+# PW Task:
+
+<div align="center"><video src="https://github.com/user-attachments/assets/2cf2e8fc-0ca3-411c-aca6-49ac784b0a1a" height="400" ></video></div>
